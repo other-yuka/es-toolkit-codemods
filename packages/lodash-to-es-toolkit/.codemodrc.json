@@ -1,0 +1,24 @@
+{
+  "$schema": "https://codemod-utils.s3.us-west-1.amazonaws.com/configuration_schema.json",
+  "name": "lodash/2/es-toolkit/migrate",
+  "description": "Migrates lodash to es-toolkit",
+  "version": "0.1.0",
+  "engine": "jscodeshift",
+  "include": [
+    "**/*.js",
+    "**/*.cjs",
+    "**/*.mjs",
+    "**/*.ts",
+    "**/*.jsx",
+    "**/*.tsx"
+  ],
+  "arguments": [],
+  "meta": {
+    "tags": [
+      "es-toolkit",
+      "lodash",
+      "migration"
+    ],
+    "git": "https://github.com/other-yuka/es-toolkit-codemods.git"
+  }
+}

@@ -1,0 +1,58 @@
+name: Update es-toolkit Mapping
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 매일 00:00(UTC)에 실행
+  workflow_dispatch:  # 수동 실행도 가능하게 함
+
+jobs:
+  update-mapping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq curl tar
+
+      - name: Run update script
+        run: |
+          chmod +x ./scripts/update-es-toolkit-mapping.sh
+          ./scripts/update-es-toolkit-mapping.sh
+
+      - name: Checking version
+        id: version
+        run: |
+          if [ -f version.txt ]; then
+            VERSION=$(cat version.txt)
+            echo "Found version: $VERSION"
+            echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+            rm version.txt
+          else
+            echo "version.txt not found, skipping commit."
+            exit 1
+          fi
+
+      - name: Create commits
+        run: |
+          git config --local user.name "Sanggyu Kang"
+          git config --local user.email "other.yuka@gmail.com"
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: update es-toolkit mapping data for ${{ steps.version.outputs.VERSION }}"
+          title: "chore: update es-toolkit mapping data for ${{ steps.version.outputs.VERSION }}"
+          body: "Automated changes to update es-toolkit mapping for version ${{ steps.version.outputs.VERSION }}."
+          branch: "chore/update-mapping-to-v${{ steps.version.outputs.VERSION }}"
+          base: main
+          add-paths: |
+            packages/lodash-to-es-toolkit/src/constant/es-toolkit.mapping.ts

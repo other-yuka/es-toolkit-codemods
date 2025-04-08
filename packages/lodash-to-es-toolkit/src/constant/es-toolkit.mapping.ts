@@ -1,5 +1,5 @@
 // This file is auto-generated. Do not edit manually.
-// Generated from es-toolkit version 1.33.0
+// Generated from es-toolkit version 1.34.1
 
 import type { CompatibilityMapping } from '../types';
 
@@ -12,6 +12,8 @@ export const compatibilityMap = {
   ary: { module: 'es-toolkit', name: 'ary' },
   asyncNoop: { module: 'es-toolkit', name: 'asyncNoop' },
   at: { module: 'es-toolkit', name: 'at' },
+  attempt: { module: 'es-toolkit', name: 'attempt' },
+  attemptAsync: { module: 'es-toolkit', name: 'attemptAsync' },
   before: { module: 'es-toolkit', name: 'before' },
   camelCase: { module: 'es-toolkit', name: 'camelCase' },
   capitalize: { module: 'es-toolkit', name: 'capitalize' },
@@ -60,6 +62,7 @@ export const compatibilityMap = {
   isArrayBuffer: { module: 'es-toolkit', name: 'isArrayBuffer' },
   isBlob: { module: 'es-toolkit', name: 'isBlob' },
   isBoolean: { module: 'es-toolkit', name: 'isBoolean' },
+  isBrowser: { module: 'es-toolkit', name: 'isBrowser' },
   isBuffer: { module: 'es-toolkit', name: 'isBuffer' },
   isDate: { module: 'es-toolkit', name: 'isDate' },
   isEqual: { module: 'es-toolkit', name: 'isEqual' },
@@ -74,6 +77,7 @@ export const compatibilityMap = {
   isLength: { module: 'es-toolkit', name: 'isLength' },
   isMap: { module: 'es-toolkit', name: 'isMap' },
   isNil: { module: 'es-toolkit', name: 'isNil' },
+  isNode: { module: 'es-toolkit', name: 'isNode' },
   isNotNil: { module: 'es-toolkit', name: 'isNotNil' },
   isNull: { module: 'es-toolkit', name: 'isNull' },
   isPlainObject: { module: 'es-toolkit', name: 'isPlainObject' },
@@ -174,7 +178,6 @@ export const compatibilityMap = {
   zipWith: { module: 'es-toolkit', name: 'zipWith' },
   add: { module: 'es-toolkit/compat', name: 'add' },
   assignIn: { module: 'es-toolkit/compat', name: 'assignIn' },
-  attempt: { module: 'es-toolkit/compat', name: 'attempt' },
   bind: { module: 'es-toolkit/compat', name: 'bind' },
   bindKey: { module: 'es-toolkit/compat', name: 'bindKey' },
   castArray: { module: 'es-toolkit/compat', name: 'castArray' },
@@ -203,6 +206,7 @@ export const compatibilityMap = {
   floor: { module: 'es-toolkit/compat', name: 'floor' },
   forEach: { module: 'es-toolkit/compat', name: 'forEach' },
   fromPairs: { module: 'es-toolkit/compat', name: 'fromPairs' },
+  functionsIn: { module: 'es-toolkit/compat', name: 'functionsIn' },
   get: { module: 'es-toolkit/compat', name: 'get' },
   gt: { module: 'es-toolkit/compat', name: 'gt' },
   gte: { module: 'es-toolkit/compat', name: 'gte' },
@@ -253,6 +257,7 @@ export const compatibilityMap = {
   rearg: { module: 'es-toolkit/compat', name: 'rearg' },
   reduce: { module: 'es-toolkit/compat', name: 'reduce' },
   reduceRight: { module: 'es-toolkit/compat', name: 'reduceRight' },
+  reject: { module: 'es-toolkit/compat', name: 'reject' },
   repeat: { module: 'es-toolkit/compat', name: 'repeat' },
   replace: { module: 'es-toolkit/compat', name: 'replace' },
   reverse: { module: 'es-toolkit/compat', name: 'reverse' },
@@ -262,6 +267,7 @@ export const compatibilityMap = {
   some: { module: 'es-toolkit/compat', name: 'some' },
   sortedIndex: { module: 'es-toolkit/compat', name: 'sortedIndex' },
   sortedIndexBy: { module: 'es-toolkit/compat', name: 'sortedIndexBy' },
+  sortedIndexOf: { module: 'es-toolkit/compat', name: 'sortedIndexOf' },
   startsWith: { module: 'es-toolkit/compat', name: 'startsWith' },
   stubArray: { module: 'es-toolkit/compat', name: 'stubArray' },
   stubFalse: { module: 'es-toolkit/compat', name: 'stubFalse' },

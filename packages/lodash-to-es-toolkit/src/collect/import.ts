@@ -1,6 +1,6 @@
 import type { Collection, JSCodeshift } from 'jscodeshift';
 import type { MappingTracker } from '../types';
-import { addCompatibleImportIfAvailable, transformLodashMemberExpressions } from '../utils/common';
+import { transformLodashMemberExpressions, tryAddCompatibleImport } from '../utils/common';
 
 export function collectImports(j: JSCodeshift, root: Collection, transformMapping: MappingTracker): void {
   const lodashIdentifiers = new Set<string>();
@@ -27,7 +27,7 @@ export function collectImports(j: JSCodeshift, root: Collection, transformMappin
           ) {
             const importedName = specifier.imported.name;
             const localName = specifier.local.name;
-            addCompatibleImportIfAvailable(importedName, localName, transformMapping);
+            tryAddCompatibleImport(importedName, localName, transformMapping);
           }
         });
       } else if (/^lodash(-es)?[/.]/.test(importPath)) {
@@ -35,7 +35,7 @@ export function collectImports(j: JSCodeshift, root: Collection, transformMappin
         const defaultSpecifier = node.specifiers?.find(spec => spec.type === 'ImportDefaultSpecifier');
         if (defaultSpecifier?.local) {
           const localName = defaultSpecifier.local.name;
-          addCompatibleImportIfAvailable(functionName, localName, transformMapping);
+          tryAddCompatibleImport(functionName, localName, transformMapping);
         }
       }
     });

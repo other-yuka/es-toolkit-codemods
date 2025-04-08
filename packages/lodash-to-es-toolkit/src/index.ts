@@ -1,5 +1,6 @@
 import type { API, FileInfo } from 'jscodeshift';
-import { collectImports, collectRequires, transformLodashToEsToolkit } from './transformers';
+import { collectImports, collectRequires } from './collect';
+import { transformLodashToEsToolkit } from './transformers';
 import type { MappingTracker } from './types';
 import detectLineTerminator from './utils/line-terminator';
 import detectQuoteStyle from './utils/quote-style';
@@ -15,6 +16,7 @@ export default function transformer(file: FileInfo, api: API) {
   const transformMapping: MappingTracker = {
     esToolkit: [],
     esToolkitCompat: [],
+    failed: [],
   };
 
   // Detect original code style preferences before making changes

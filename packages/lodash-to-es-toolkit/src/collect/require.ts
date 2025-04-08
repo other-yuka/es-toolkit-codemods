@@ -1,6 +1,6 @@
 import type { Collection, JSCodeshift } from 'jscodeshift';
 import type { MappingTracker } from '../types';
-import { addCompatibleImportIfAvailable, transformLodashMemberExpressions } from '../utils/common';
+import { transformLodashMemberExpressions, tryAddCompatibleImport } from '../utils/common';
 
 export function collectRequires(j: JSCodeshift, root: Collection, transformMapping: MappingTracker): void {
   const lodashIdentifiers = new Set<string>();
@@ -35,7 +35,7 @@ export function collectRequires(j: JSCodeshift, root: Collection, transformMappi
             if (prop.type === 'ObjectProperty' && prop.key.type === 'Identifier' && prop.value.type === 'Identifier') {
               const importedName = prop.key.name;
               const localName = prop.value.name;
-              addCompatibleImportIfAvailable(importedName, localName, transformMapping);
+              tryAddCompatibleImport(importedName, localName, transformMapping);
             }
           });
         }
@@ -43,7 +43,7 @@ export function collectRequires(j: JSCodeshift, root: Collection, transformMappi
         if (node.id.type === 'Identifier') {
           const functionName = requirePath.replace(/^lodash\/|^lodash\.|\\.js$/g, '');
           const localName = node.id.name;
-          addCompatibleImportIfAvailable(functionName, localName, transformMapping);
+          tryAddCompatibleImport(functionName, localName, transformMapping);
         }
       }
     });

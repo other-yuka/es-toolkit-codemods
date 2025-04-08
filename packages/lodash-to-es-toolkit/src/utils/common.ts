@@ -2,11 +2,11 @@ import type { Collection, JSCodeshift } from 'jscodeshift';
 import { compatibilityMap } from '../constant/es-toolkit.mapping';
 import type { ImportMapping, MappingTracker } from '../types';
 
-export function addCompatibleImportIfAvailable(
+export function tryAddCompatibleImport(
   originalName: string,
   localName: string,
   transformMapping: MappingTracker
-): void {
+): boolean {
   const compatInfo = getCompatibleImport(originalName);
   if (compatInfo) {
     const mapping: ImportMapping = {
@@ -14,11 +14,19 @@ export function addCompatibleImportIfAvailable(
       importName: localName,
     };
 
-    addToImportTracker(transformMapping, mapping, compatInfo.module);
+    registerImportMapping(transformMapping, mapping, compatInfo.module);
+    return true;
   }
+
+  transformMapping.failed.push(originalName);
+  return false;
 }
 
-export function addToImportTracker(transformMapping: MappingTracker, mapping: ImportMapping, moduleType: string): void {
+export function registerImportMapping(
+  transformMapping: MappingTracker,
+  mapping: ImportMapping,
+  moduleType: string
+): void {
   if (moduleType === 'es-toolkit') {
     if (!transformMapping.esToolkit.some(m => m.importName === mapping.importName)) {
       transformMapping.esToolkit.push(mapping);
@@ -48,9 +56,9 @@ export function transformLodashMemberExpressions(
       if (node.property.type === 'Identifier') {
         const functionName = node.property.name;
 
-        addCompatibleImportIfAvailable(functionName, functionName, transformMapping);
-
-        j(path).replaceWith(j.identifier(functionName));
+        if (tryAddCompatibleImport(functionName, functionName, transformMapping)) {
+          j(path).replaceWith(j.identifier(functionName));
+        }
       }
     }
   });

@@ -13,4 +13,5 @@ export interface ImportMapping {
 export interface MappingTracker {
   esToolkit: ImportMapping[];
   esToolkitCompat: ImportMapping[];
+  failed: string[];
 }

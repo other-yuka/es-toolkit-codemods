@@ -115,4 +115,14 @@ describe('es-toolkit-codemods transformations', () => {
       await testTransformation('jsx.custom-hook.input.jsx', 'jsx.custom-hook.output.jsx', 'jsx.custom-hook.tsx');
     });
   });
+
+  describe('failure cases', () => {
+    it('should handle invalid imports', async () => {
+      await testTransformation(
+        'es6.mapping-failure-case.input.js',
+        'es6.mapping-failure-case.output.js',
+        'invalid-import.ts'
+      );
+    });
+  });
 });

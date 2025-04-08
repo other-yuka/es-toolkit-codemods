@@ -7,7 +7,8 @@ export function transformLodashToEsToolkit(j: JSCodeshift, root: Collection, tra
   const lodashRequires = findLodashRequires(j, root);
 
   const programBody = root.get().value.program.body;
-  const hasRequireStyle = lodashRequires.length > 0;
+  const hasImportStyle = lodashImports.length > 0;
+  const hasComplete = transformMapping.failed.length === 0;
 
   const { insertPosition, commentsToPreserve } = determineInsertPositionAndComments(
     programBody,
@@ -15,15 +16,12 @@ export function transformLodashToEsToolkit(j: JSCodeshift, root: Collection, tra
     lodashRequires
   );
 
-  lodashImports.remove();
-  lodashRequires.remove();
-
   const esToolkitImport = createModuleImports(
     j,
     transformMapping.esToolkit,
     'es-toolkit',
-    hasRequireStyle,
-    commentsToPreserve
+    hasImportStyle,
+    hasComplete ? commentsToPreserve : []
   );
 
   const compatCommentsToUse = esToolkitImport ? [] : commentsToPreserve;
@@ -31,13 +29,89 @@ export function transformLodashToEsToolkit(j: JSCodeshift, root: Collection, tra
     j,
     transformMapping.esToolkitCompat,
     'es-toolkit/compat',
-    hasRequireStyle,
-    compatCommentsToUse
+    hasImportStyle,
+    hasComplete ? compatCommentsToUse : []
   );
 
   const importsToInsert = [esToolkitImport, esToolkitCompatImport].filter(Boolean);
   if (importsToInsert.length > 0) {
-    programBody.splice(insertPosition, 0, ...importsToInsert);
+    programBody.splice(insertPosition + 1, 0, ...importsToInsert);
+  }
+
+  if (hasComplete) {
+    lodashImports.remove();
+    lodashRequires.remove();
+  } else if (transformMapping.esToolkit.length > 0 || transformMapping.esToolkitCompat.length > 0) {
+    const modulesToTransform = [...transformMapping.esToolkit, ...transformMapping.esToolkitCompat];
+    modulesToTransform.forEach(mapping => {
+      if (hasImportStyle) {
+        root
+          .find(j.ImportDeclaration, {
+            source: {
+              value: (val: string) => /^lodash(-es)?(\/|$|\.)/.test(val),
+            },
+          })
+          .forEach(path => {
+            const node = path.node;
+            if (node.specifiers) {
+              node.specifiers = node.specifiers.filter(spec => {
+                if (
+                  spec.type === 'ImportSpecifier' &&
+                  spec.imported?.type === 'Identifier' &&
+                  spec.imported.name === mapping.originalName
+                ) {
+                  return false; // 제거
+                }
+                if (
+                  spec.type === 'ImportDefaultSpecifier' &&
+                  spec.local?.type === 'Identifier' &&
+                  spec.local.name === mapping.originalName
+                ) {
+                  return false; // 제거
+                }
+                return true; // 유지
+              });
+              if (node.specifiers.length === 0) {
+                j(path).remove();
+              }
+            }
+          });
+      } else {
+        root.find(j.VariableDeclaration).forEach(path => {
+          if (path.node.declarations) {
+            path.node.declarations.forEach(declaration => {
+              if (
+                'init' in declaration &&
+                declaration.init &&
+                declaration.init.type === 'CallExpression' &&
+                declaration.init.callee.type === 'Identifier' &&
+                declaration.init.callee.name === 'require' &&
+                declaration.init.arguments.length === 1 &&
+                declaration.init.arguments[0]?.type === 'Literal'
+              ) {
+                const source = declaration.init.arguments[0].value as string;
+                if (/^lodash(-es)?(\/|$|\.)/.test(source)) {
+                  if (declaration.id.type === 'ObjectPattern' && declaration.id.properties) {
+                    declaration.id.properties = declaration.id.properties.filter(
+                      prop =>
+                        !(
+                          prop.type === 'ObjectProperty' &&
+                          prop.key.type === 'Identifier' &&
+                          prop.key.name === mapping.originalName
+                        )
+                    );
+                  }
+
+                  if (declaration.id.type === 'ObjectPattern' && declaration.id.properties.length === 0) {
+                    j(path).remove();
+                  }
+                }
+              }
+            });
+          }
+        });
+      }
+    });
   }
 }
 
@@ -59,8 +133,7 @@ function findLodashRequires(j: JSCodeshift, root: Collection): Collection {
         decl.init.callee.name === 'require'
       ) {
         const args = decl.init.arguments;
-        //@ts-ignore
-        if (args.length === 1 && (args[0].type === 'StringLiteral' || args[0].type === 'Literal')) {
+        if (args.length === 1 && (args[0]?.type === 'StringLiteral' || args[0]?.type === 'Literal')) {
           const value = String(args[0].value);
           return value === 'lodash' || value.startsWith('lodash.') || value.startsWith('lodash/');
         }
@@ -95,15 +168,15 @@ function createModuleImports(
   j: JSCodeshift,
   mappings: ImportMapping[],
   modulePath: string,
-  hasRequireStyle: boolean,
+  hasImportStyle: boolean,
   commentsToPreserve: CommentKind[]
 ): ImportDeclaration | VariableDeclaration | null {
   if (mappings.length === 0) return null;
 
   const sortedMappings = sortMappingsByImportName(mappings);
-  const node = hasRequireStyle
-    ? createRequireDeclaration(j, sortedMappings, modulePath)
-    : createImportDeclaration(j, sortedMappings, modulePath);
+  const node = hasImportStyle
+    ? createImportDeclaration(j, sortedMappings, modulePath)
+    : createRequireDeclaration(j, sortedMappings, modulePath);
 
   if (commentsToPreserve.length > 0) {
     node.comments = convertComments(j, commentsToPreserve);

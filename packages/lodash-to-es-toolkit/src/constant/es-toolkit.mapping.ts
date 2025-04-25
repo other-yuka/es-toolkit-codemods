@@ -1,5 +1,5 @@
 // This file is auto-generated. Do not edit manually.
-// Generated from es-toolkit version 1.35.0
+// Generated from es-toolkit version 1.36.0
 
 import type { CompatibilityMapping } from '../types';
 
@@ -193,11 +193,13 @@ export const compatibilityMap = {
   conformsTo: { module: 'es-toolkit/compat', name: 'conformsTo' },
   constant: { module: 'es-toolkit/compat', name: 'constant' },
   create: { module: 'es-toolkit/compat', name: 'create' },
+  default: { module: 'es-toolkit/compat', name: 'default' },
   defaultTo: { module: 'es-toolkit/compat', name: 'defaultTo' },
   defaults: { module: 'es-toolkit/compat', name: 'defaults' },
   defer: { module: 'es-toolkit/compat', name: 'defer' },
   divide: { module: 'es-toolkit/compat', name: 'divide' },
   each: { module: 'es-toolkit/compat', name: 'each' },
+  eachRight: { module: 'es-toolkit/compat', name: 'eachRight' },
   endsWith: { module: 'es-toolkit/compat', name: 'endsWith' },
   eq: { module: 'es-toolkit/compat', name: 'eq' },
   every: { module: 'es-toolkit/compat', name: 'every' },
@@ -213,6 +215,10 @@ export const compatibilityMap = {
   flip: { module: 'es-toolkit/compat', name: 'flip' },
   floor: { module: 'es-toolkit/compat', name: 'floor' },
   forEach: { module: 'es-toolkit/compat', name: 'forEach' },
+  forIn: { module: 'es-toolkit/compat', name: 'forIn' },
+  forInRight: { module: 'es-toolkit/compat', name: 'forInRight' },
+  forOwn: { module: 'es-toolkit/compat', name: 'forOwn' },
+  forOwnRight: { module: 'es-toolkit/compat', name: 'forOwnRight' },
   fromPairs: { module: 'es-toolkit/compat', name: 'fromPairs' },
   functions: { module: 'es-toolkit/compat', name: 'functions' },
   functionsIn: { module: 'es-toolkit/compat', name: 'functionsIn' },
@@ -220,6 +226,7 @@ export const compatibilityMap = {
   gt: { module: 'es-toolkit/compat', name: 'gt' },
   gte: { module: 'es-toolkit/compat', name: 'gte' },
   has: { module: 'es-toolkit/compat', name: 'has' },
+  hasIn: { module: 'es-toolkit/compat', name: 'hasIn' },
   includes: { module: 'es-toolkit/compat', name: 'includes' },
   indexOf: { module: 'es-toolkit/compat', name: 'indexOf' },
   invertBy: { module: 'es-toolkit/compat', name: 'invertBy' },
@@ -257,6 +264,8 @@ export const compatibilityMap = {
   nth: { module: 'es-toolkit/compat', name: 'nth' },
   nthArg: { module: 'es-toolkit/compat', name: 'nthArg' },
   over: { module: 'es-toolkit/compat', name: 'over' },
+  overEvery: { module: 'es-toolkit/compat', name: 'overEvery' },
+  overSome: { module: 'es-toolkit/compat', name: 'overSome' },
   padEnd: { module: 'es-toolkit/compat', name: 'padEnd' },
   padStart: { module: 'es-toolkit/compat', name: 'padStart' },
   parseInt: { module: 'es-toolkit/compat', name: 'parseInt' },
@@ -264,6 +273,7 @@ export const compatibilityMap = {
   propertyOf: { module: 'es-toolkit/compat', name: 'propertyOf' },
   pullAll: { module: 'es-toolkit/compat', name: 'pullAll' },
   pullAllBy: { module: 'es-toolkit/compat', name: 'pullAllBy' },
+  pullAllWith: { module: 'es-toolkit/compat', name: 'pullAllWith' },
   rearg: { module: 'es-toolkit/compat', name: 'rearg' },
   reduce: { module: 'es-toolkit/compat', name: 'reduce' },
   reduceRight: { module: 'es-toolkit/compat', name: 'reduceRight' },

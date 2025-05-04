@@ -1,5 +1,5 @@
 // This file is auto-generated. Do not edit manually.
-// Generated from es-toolkit version 1.36.0
+// Generated from es-toolkit version 1.37.1
 
 import type { CompatibilityMapping } from '../types';
 
@@ -280,6 +280,7 @@ export const compatibilityMap = {
   reject: { module: 'es-toolkit/compat', name: 'reject' },
   repeat: { module: 'es-toolkit/compat', name: 'repeat' },
   replace: { module: 'es-toolkit/compat', name: 'replace' },
+  result: { module: 'es-toolkit/compat', name: 'result' },
   reverse: { module: 'es-toolkit/compat', name: 'reverse' },
   set: { module: 'es-toolkit/compat', name: 'set' },
   size: { module: 'es-toolkit/compat', name: 'size' },
@@ -315,11 +316,13 @@ export const compatibilityMap = {
   toSafeInteger: { module: 'es-toolkit/compat', name: 'toSafeInteger' },
   toString: { module: 'es-toolkit/compat', name: 'toString' },
   toUpper: { module: 'es-toolkit/compat', name: 'toUpper' },
+  transform: { module: 'es-toolkit/compat', name: 'transform' },
   uniqueId: { module: 'es-toolkit/compat', name: 'uniqueId' },
   unset: { module: 'es-toolkit/compat', name: 'unset' },
   update: { module: 'es-toolkit/compat', name: 'update' },
   updateWith: { module: 'es-toolkit/compat', name: 'updateWith' },
   values: { module: 'es-toolkit/compat', name: 'values' },
   valuesIn: { module: 'es-toolkit/compat', name: 'valuesIn' },
+  wrap: { module: 'es-toolkit/compat', name: 'wrap' },
   zipObjectDeep: { module: 'es-toolkit/compat', name: 'zipObjectDeep' },
 } as CompatibilityMapping;

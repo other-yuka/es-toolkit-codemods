@@ -1,5 +1,5 @@
 // This file is auto-generated. Do not edit manually.
-// Generated from es-toolkit version 1.38.0
+// Generated from es-toolkit version 1.39.0
 
 import type { CompatibilityMapping } from '../types';
 
@@ -199,6 +199,7 @@ export const compatibilityMap = {
   default: { module: 'es-toolkit/compat', name: 'default' },
   defaultTo: { module: 'es-toolkit/compat', name: 'defaultTo' },
   defaults: { module: 'es-toolkit/compat', name: 'defaults' },
+  defaultsDeep: { module: 'es-toolkit/compat', name: 'defaultsDeep' },
   defer: { module: 'es-toolkit/compat', name: 'defer' },
   divide: { module: 'es-toolkit/compat', name: 'divide' },
   each: { module: 'es-toolkit/compat', name: 'each' },
@@ -213,7 +214,9 @@ export const compatibilityMap = {
   findIndex: { module: 'es-toolkit/compat', name: 'findIndex' },
   findLast: { module: 'es-toolkit/compat', name: 'findLast' },
   findLastIndex: { module: 'es-toolkit/compat', name: 'findLastIndex' },
+  findLastKey: { module: 'es-toolkit/compat', name: 'findLastKey' },
   first: { module: 'es-toolkit/compat', name: 'first' },
+  flatMapDepth: { module: 'es-toolkit/compat', name: 'flatMapDepth' },
   flattenDepth: { module: 'es-toolkit/compat', name: 'flattenDepth' },
   flip: { module: 'es-toolkit/compat', name: 'flip' },
   floor: { module: 'es-toolkit/compat', name: 'floor' },
@@ -244,6 +247,7 @@ export const compatibilityMap = {
   isFinite: { module: 'es-toolkit/compat', name: 'isFinite' },
   isInteger: { module: 'es-toolkit/compat', name: 'isInteger' },
   isMatch: { module: 'es-toolkit/compat', name: 'isMatch' },
+  isMatchWith: { module: 'es-toolkit/compat', name: 'isMatchWith' },
   isNaN: { module: 'es-toolkit/compat', name: 'isNaN' },
   isNative: { module: 'es-toolkit/compat', name: 'isNative' },
   isNumber: { module: 'es-toolkit/compat', name: 'isNumber' },
@@ -269,6 +273,7 @@ export const compatibilityMap = {
   nth: { module: 'es-toolkit/compat', name: 'nth' },
   nthArg: { module: 'es-toolkit/compat', name: 'nthArg' },
   over: { module: 'es-toolkit/compat', name: 'over' },
+  overArgs: { module: 'es-toolkit/compat', name: 'overArgs' },
   overEvery: { module: 'es-toolkit/compat', name: 'overEvery' },
   overSome: { module: 'es-toolkit/compat', name: 'overSome' },
   padEnd: { module: 'es-toolkit/compat', name: 'padEnd' },
@@ -324,6 +329,7 @@ export const compatibilityMap = {
   toString: { module: 'es-toolkit/compat', name: 'toString' },
   toUpper: { module: 'es-toolkit/compat', name: 'toUpper' },
   transform: { module: 'es-toolkit/compat', name: 'transform' },
+  truncate: { module: 'es-toolkit/compat', name: 'truncate' },
   uniqueId: { module: 'es-toolkit/compat', name: 'uniqueId' },
   unset: { module: 'es-toolkit/compat', name: 'unset' },
   update: { module: 'es-toolkit/compat', name: 'update' },

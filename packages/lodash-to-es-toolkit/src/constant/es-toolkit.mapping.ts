@@ -1,5 +1,5 @@
 // This file is auto-generated. Do not edit manually.
-// Generated from es-toolkit version 1.39.0
+// Generated from es-toolkit version 1.39.1
 
 import type { CompatibilityMapping } from '../types';
 
